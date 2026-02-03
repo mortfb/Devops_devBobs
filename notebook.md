@@ -10,6 +10,6 @@ Header with Lecture number.
 
 
 # Lecture 02
-03/02 | 10:01: Created notebook.md
+03/02 | 10:01: Created notebook.md <br>
 03/02 | 10:10: Created project board for issues.
 - Issues with board being public.
