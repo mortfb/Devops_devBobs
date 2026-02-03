@@ -18,16 +18,7 @@ builder.Services.AddDefaultIdentity<Author>(options =>
 
 builder.Services.AddSession();
 
-builder.Services.AddAuthentication()
-    .AddCookie()
-    .AddGitHub(o =>
-    {
-        o.ClientId = builder.Configuration["authentication:github:clientId"] ?? string.Empty;
-        o.ClientSecret = builder.Configuration["authentication:github:clientSecret"] ?? string.Empty;
-        o.CallbackPath = "/signin-github";
-        o.Scope.Add("user:email");
-        o.Scope.Add("read:user");
-    });
+
 
 
 // Add services to the container.
