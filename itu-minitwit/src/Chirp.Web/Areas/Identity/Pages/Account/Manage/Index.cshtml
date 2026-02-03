@@ -1,0 +1,110 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+<div class="row">
+    <div class="col-md-6">
+        <p>Your account contains personal data that you have given us. This page allows you to see or delete that data.</p>
+        <p>
+            Deleting this data will permanently remove your account, and this cannot be recovered.
+        </p>
+        <p>
+            <button>
+                <a class="deletebutton" asp-page="DeletePersonalData">Delete</a>
+            </button>
+        </p>
+    </div>
+    <p>____________________________________________________________________________________________</p>
+<h3>@ViewData["Title"]</h3>
+
+    <div class="col-md-6">
+        <p>Username: @(Model.Author.Username)</p>
+        <p>Email: @(Model.Author.Email)</p>
+        
+        <h3>Following</h3>
+
+
+        @{
+            System.Diagnostics.Debug.Assert(Model.Follows != null, "Model.Follows != null");
+        }
+        @if (Model.Follows.Any())
+        {
+        <ul class="followlist">
+            @foreach (var follow in Model.Follows)
+            {
+            <li>
+                <strong>
+                    <a href="/@follow.Followed">@follow.Followed</a>
+                </strong>
+            </li>
+            }
+        </ul>
+        }
+        else
+        {
+        <em>You're not following anyone.</em>
+        }
+        
+        <h3>Cheeps</h3>
+        @{
+            System.Diagnostics.Debug.Assert(Model.Cheeps != null, "Model.Cheeps != null");
+        }
+        @if (Model.Cheeps.Any())
+        {
+        <ul id="messagelist" class="cheeps">
+            @foreach (var cheep in Model.Cheeps)
+            {
+            <li>
+                <strong>
+                <a href="/@cheep.Author">@cheep.Author</a>
+                </strong>
+
+                <small>
+                    &mdash;
+                    @cheep.Timestamp
+                </small>
+                <div class="cheepmessage">@cheep.Message</div>
+                <small>Likes: @cheep.Likes</small>
+            </li>
+            }
+        </ul>
+        }
+        else
+        {
+        <em>You have no cheeps so far.</em>
+        }
+
+        <h3>Liked Cheeps</h3>
+        @{
+        System.Diagnostics.Debug.Assert(Model.LikedCheeps != null, "Model.Cheeps != null");
+        }
+        @if (Model.LikedCheeps.Any())
+        {
+        <ul id="messagelist" class="cheeps">
+            @foreach (var cheep in Model.LikedCheeps)
+            {
+            <li>
+                <strong>
+                    <a href="/@cheep.Author">@cheep.Author</a>
+                </strong>
+
+                <small>
+                    &mdash;
+                    @cheep.Timestamp
+                </small>
+                <div class="cheepmessage">@cheep.Message</div>
+                <small>Likes: @cheep.Likes</small>
+            </li>
+            }
+        </ul>
+        }
+        else
+        {
+        <em>You have not liked any cheeps so far.</em>
+        }
+    </div>
+</div>
+
+
