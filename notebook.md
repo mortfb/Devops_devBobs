@@ -13,3 +13,5 @@ Header with Lecture number.
 03/02 | 10:01: Created notebook.md <br>
 03/02 | 10:10: Created project board for issues.
 - Issues with board being public.
+03/02 | 11:40: Refactores chirp into project and made it run
+- Confused about how we should handle tests. Asked TA - we need to choose what we want. Decided to cut and paste in current minitwit_tests.py file to make it work with Chirp.
