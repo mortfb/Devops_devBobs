@@ -18,6 +18,6 @@ COPY ./src/ src/
 RUN dotnet restore
 
 # set work directory to chirp.web - so we can run dotnet run
-WORKDIR /src/Chrip.Web/
-RUN ls
+WORKDIR /src/Chirp.Web/
+
 RUN dotnet run
