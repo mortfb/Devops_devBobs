@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 
 # copy the solution, tests and projects
-COPY Chirp.sln Chirp.sln
+COPY MiniTwit.sln MiniTwit.sln
 RUN mkdir src
 RUN mkdir test
 COPY ./test test/ 
@@ -18,7 +18,7 @@ COPY ./src/ src/
 RUN dotnet restore
 
 # set work directory to chirp.web - so we can run dotnet build & publish
-WORKDIR /src/Chirp.Web/
+WORKDIR /src/MiniTwit.Web/
 
 #expose port 8080. Can access -p 8080:8080 when running the image.
 EXPOSE 8080
@@ -26,11 +26,11 @@ EXPOSE 8080
 # rest is taken from: https://stackoverflow.com/questions/74382131/docker-net-the-command-could-not-be-loaded-while-dotnet-and-dll-file-are-pre
 
 #build project
-RUN dotnet build "Chirp.Web.csproj" -c Release -o /app/build
+RUN dotnet build "MiniTwit.Web.csproj" -c Release -o /app/build
 
 #use build stage and create new stage publish. Then publish
 FROM build AS publish
-RUN dotnet publish "Chirp.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish "MiniTwit.Web.csproj" -c Release -o /app/publish
 
 #use base/runtime image that has less garbage laying around to run the image.
 FROM base AS final
@@ -40,4 +40,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 #container starts at the .dll
-ENTRYPOINT ["dotnet", "Chirp.Web.dll"]
+ENTRYPOINT ["dotnet", "MiniTwit.Web.dll"]

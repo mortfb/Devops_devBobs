@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Core.Migrations
 {
     [DbContext(typeof(CheepDbContext))]
-    [Migration("20241202085949_ChangesLikesRemovedTable")]
-    partial class ChangesLikesRemovedTable
+    [Migration("20241113142908_AddedCheckUsernameVun")]
+    partial class AddedCheckUsernameVun
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace Chirp.Core.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
-            modelBuilder.Entity("Chirp.Core.Author", b =>
+            modelBuilder.Entity("MiniTwit.Core.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace Chirp.Core.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Chirp.Core.Cheep", b =>
+            modelBuilder.Entity("MiniTwit.Core.Cheep", b =>
                 {
                     b.Property<int>("CheepId")
                         .ValueGeneratedOnAdd()
@@ -99,10 +99,6 @@ namespace Chirp.Core.Migrations
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Likes")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -117,21 +113,6 @@ namespace Chirp.Core.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Cheeps");
-                });
-
-            modelBuilder.Entity("Chirp.Core.Follow", b =>
-                {
-                    b.Property<string>("Follower")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Followed")
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Follower", "Followed");
-
-                    b.ToTable("Follows");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -264,10 +245,10 @@ namespace Chirp.Core.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Chirp.Core.Cheep", b =>
+            modelBuilder.Entity("MiniTwit.Core.Cheep", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", "Author")
-                        .WithMany()
+                    b.HasOne("MiniTwit.Core.Author", "Author")
+                        .WithMany("Cheeps")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -286,7 +267,7 @@ namespace Chirp.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,7 +276,7 @@ namespace Chirp.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -310,7 +291,7 @@ namespace Chirp.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -319,11 +300,16 @@ namespace Chirp.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MiniTwit.Core.Author", b =>
+                {
+                    b.Navigation("Cheeps");
                 });
 #pragma warning restore 612, 618
         }

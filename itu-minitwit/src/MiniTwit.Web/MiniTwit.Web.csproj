@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
       <UserSecretsId>0c864033-1e9d-4d60-be4d-093611e2fdaa</UserSecretsId>
+      <RootNamespace>Chirp.Web</RootNamespace>
   </PropertyGroup>
 
     <ItemGroup>
@@ -25,8 +26,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Chirp.Core\Chirp.Core.csproj" />
-      <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
+      <ProjectReference Include="..\MiniTwit.Core\MiniTwit.Core.csproj" />
+      <ProjectReference Include="..\MiniTwit.Infrastructure\MiniTwit.Infrastructure.csproj" />
     </ItemGroup>
     
     
