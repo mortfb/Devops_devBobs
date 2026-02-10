@@ -36,3 +36,6 @@ Header with Lecture number.
 - The image can now be created. Can see with `docker image ls`, and run / create with container with `docker run --rm marho/mychirp`
 - Ran into issue when running server. It opened on `Now listening on: http://[::]:8080`. Fix: Needed to define `-p 8080:8080` in the command when running and `EXPOSE 8080` in the Dockerfile - like the exercises from this week.
 - Can now run start the container with `docker run -p 8080:8080 marho/mychirp` and open `http://localhost:8080/`. Added my notes to the commit.
+
+# Lecture 03
+10/02: 11:35: Refactord Chirp to be named MiniTwit & Moved legacy code to own branch.
