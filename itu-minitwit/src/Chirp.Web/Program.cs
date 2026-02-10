@@ -68,6 +68,8 @@ app.UseSession();
 
 app.MapRazorPages();
 
+app.MapProductEndpoints();
+
 app.Run(); 
 
 public partial class Program {} 
