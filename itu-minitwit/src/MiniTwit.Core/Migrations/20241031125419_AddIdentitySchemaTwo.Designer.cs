@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chirp.Core.Migrations
 {
     [DbContext(typeof(CheepDbContext))]
-    [Migration("20241114144046_AdddedNameSanitize")]
-    partial class AdddedNameSanitize
+    [Migration("20241031125419_AddIdentitySchemaTwo")]
+    partial class AddIdentitySchemaTwo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace Chirp.Core.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
-            modelBuilder.Entity("Chirp.Core.Author", b =>
+            modelBuilder.Entity("MiniTwit.Core.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace Chirp.Core.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Chirp.Core.Cheep", b =>
+            modelBuilder.Entity("MiniTwit.Core.Cheep", b =>
                 {
                     b.Property<int>("CheepId")
                         .ValueGeneratedOnAdd()
@@ -245,9 +245,9 @@ namespace Chirp.Core.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Chirp.Core.Cheep", b =>
+            modelBuilder.Entity("MiniTwit.Core.Cheep", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", "Author")
+                    b.HasOne("MiniTwit.Core.Author", "Author")
                         .WithMany("Cheeps")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -267,7 +267,7 @@ namespace Chirp.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -276,7 +276,7 @@ namespace Chirp.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -291,7 +291,7 @@ namespace Chirp.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -300,14 +300,14 @@ namespace Chirp.Core.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("Chirp.Core.Author", null)
+                    b.HasOne("MiniTwit.Core.Author", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Chirp.Core.Author", b =>
+            modelBuilder.Entity("MiniTwit.Core.Author", b =>
                 {
                     b.Navigation("Cheeps");
                 });

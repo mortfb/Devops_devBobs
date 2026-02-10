@@ -24,8 +24,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Chirp.Infrastructure\Chirp.Infrastructure.csproj" />
-        <ProjectReference Include="..\..\src\Chirp.Web\Chirp.Web.csproj" />
+        <ProjectReference Include="..\..\src\MiniTwit.Infrastructure\MiniTwit.Infrastructure.csproj" />
+        <ProjectReference Include="..\..\src\MiniTwit.Web\MiniTwit.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup>
