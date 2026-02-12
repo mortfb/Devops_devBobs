@@ -39,3 +39,6 @@ Header with Lecture number.
 
 # Lecture 03
 10/02: 11:35: Refactord Chirp to be named MiniTwit & Moved legacy code to own branch.
+
+12/02: 11:00: Put database into folder. So we later can use this folder as our Docker Volume
+12/02: 11:27:  Created docker compose file, such that we can persists out database. The docker container is linked to our /src/MiniTwit.Web/Data folder - so when we close and open the container the data persists. Can run it with `docker compose up`.
