@@ -51,3 +51,8 @@ Header with Lecture number.
 14/02: 13:46: Fixed problem with docker not being recoginzed
 - Explaned the problem to ChatGPT and it taught me that when a provisioner run (the script running after the server is created), it may not have updated the PATH, so docker is not recognised. It was therefore fixed by using two provisioner scripts, one for installing docker and one for running docker (each in their own shell).
 - To spin up new Droplet, run: `vagrant up`. To destroy the droplet, run: `vagrant destroy` . If we make changes to MiniTwit and want it on the server, run: `vagrant rsync`, then `vagrant ssh`, `cd /vagrant`, and then `docker compose up -d --build`.
+
+14/02: 14:25: Tested if database persisted when updating MiniTwit, it did not.
+- Was because `rsync` was overwritting everything in /vagrant on the VM with the local folder - which meant the database too.
+- The Vagrantfile now creates a `/minitwit/data` folder, that will contains the database file. Then updated the docker compose file, such that it is mapping the database file in the Docker container to `/minitwit/data`. 
+- Current server: http://159.89.20.247:8080/
