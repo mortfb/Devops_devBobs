@@ -43,7 +43,9 @@ Vagrant.configure("2") do |config|
 
       echo "Installing docker plugins"
       sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-      
+    SHELL
+
+    server.vm.provision "shell", inline: <<-SHELL
       echo "================================================================="
       echo "=                   Starting docker container                   ="
       echo "================================================================="
