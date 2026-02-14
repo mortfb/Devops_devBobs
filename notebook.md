@@ -45,7 +45,9 @@ Header with Lecture number.
 
 13/02: 11:45: Had problems with docker not being installed on VM on DigitalOcean. 
 - Fixed with using the same commands we used to install docker in session02 PREP.md. Had problem with missing commandline flag `-y` but fixed.
+
 13/02: 12:10: Fixed that `docker compose up`. Was not run from the right folder. That came with a new problem: the script would not recognize docker even though when manually ssh' into the VM, docker was installed.
+
 14/02: 13:46: Fixed problem with docker not being recoginzed
 - Explaned the problem to ChatGPT and it taught me that when a provisioner run (the script running after the server is created), it may not have updated the PATH, so docker is not recognised. It was therefore fixed by using two provisioner scripts, one for installing docker and one for running docker (each in their own shell).
 - To spin up new Droplet, run: `vagrant up`. To destroy the droplet, run: `vagrant destroy` . If we make changes to MiniTwit and want it on the server, run: `vagrant rsync`, then `vagrant ssh`, `cd /vagrant`, and then `docker compose up -d --build`.
