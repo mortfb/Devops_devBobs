@@ -59,7 +59,7 @@ Header with Lecture number.
     - Then replace this line in the dockerfile `FROM mcr.microsoft.com/dotnet/core/aspnet:8.0-buster-slim AS base`
     - now same folder as the Dockerfile build docker: `docker build -t Api_test .`
     - then run with `docker run api_test:latest`
-    - then run: docker run -p 8080:8080 api_test:latest
+    - then run: `docker run -p 8080:8080 api_test:latest`
     - Go to the link, and endpoints are visible as described in the .json file.
     - Now in a new terminal window run `python3 minitwit_simulator.py http://127.0.0.1:8080`. Make sure that the minitwit_scenario.csv file and minitwit_simulator.py file are in the same directory. The simulator should now run
 
