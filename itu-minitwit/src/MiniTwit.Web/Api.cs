@@ -8,6 +8,7 @@ namespace Chirp.Web;
 //API, made (shoddily) after the specification in the Stub API.
 public static class Api
 {
+    private static int Latest;
     public record FollowRequest(string? Follow, string? Unfollow);
     public record SignUpRequest(string Username, string Email, string Pwd);
     
@@ -18,12 +19,17 @@ public static class Api
         app.MapGet("/fllws/{username}",
             (string username,[FromQuery (Name = "latest")] int? latests,[FromQuery (Name = "no")] int? no, IFollowRepository followRepository) =>
             {
+                if (latests.HasValue)
+                    Latest = latests.Value;
                 return followRepository.GetFollowed(username);
             });
         
         app.MapPost("/fllws/{username}",
             (string username, [FromQuery (Name = "latest")] int? latests ,[FromBody] FollowRequest request, IFollowRepository followRepository) =>
             {
+                if (latests.HasValue)
+                    Latest = latests.Value;
+                
                 if (!string.IsNullOrEmpty(request.Follow))
                 {
                     return followRepository.AddFollowing(username,request.Follow);
@@ -38,23 +44,29 @@ public static class Api
             });
         
         //TODO: This should return latest ID saved, whatever that means
-        app.MapGet("/latest",() => 0);
+        app.MapGet("/latest",() => Latest);
         
         app.MapGet("/msgs",
             ([FromQuery (Name = "latest")] int? latests,[FromQuery (Name = "no")] int? no, ICheepRepository  cheepRepository) =>
             {
+                if (latests.HasValue)
+                    Latest = latests.Value;
                 return cheepRepository.GetCheeps(0);
             });
         
         app.MapGet("/msgs/{username}",
             (string username,[FromQuery (Name = "latest")] int? latests,[FromQuery (Name = "no")] int? no, ICheepRepository cheepRepository) =>
             {
+                if (latests.HasValue)
+                    Latest = latests.Value;
                 return cheepRepository.GetAllCheepsFromAuthor(username);
             });
         
         app.MapPost("/msgs/{username}",
             (string username,[FromQuery (Name = "latest")] int? latests,[FromBody] string content, ICheepRepository cheepRepository, IAuthorRepository authorRepository) =>
             {
+                if (latests.HasValue)
+                    Latest = latests.Value;
                 var author = authorRepository.GetAuthorByName(username).Result;
                 if (author != null)
                     return cheepRepository.AddCheep(content, author);
@@ -68,6 +80,8 @@ public static class Api
         app.MapPost("/register",
             ([FromQuery (Name = "latest")] int? latests,[FromBody] SignUpRequest request, IAuthorRepository authorRepository) =>
             {
+                if (latests.HasValue)
+                    Latest = latests.Value;
                 return authorRepository.CreateAuthor(request.Username, request.Email);
             });
     }
