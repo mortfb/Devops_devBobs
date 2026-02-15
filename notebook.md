@@ -63,3 +63,11 @@ Header with Lecture number.
     - then run: docker run -p 8080:8080 api_test:latest
     - Go to the link, and endpoints are visible as described in the .json file.
     - Now run 'python3 minitwit_simulator.py http://127.0.0.1:8080`. Make sure that the minitwit_scenario.csv file and minitwit_simulator.py file are in the same directory. The simulator should now run
+
+
+
+15/02: 13:17
+- added simulator tests.
+- to run go into the MiniTwit.Web and use dotnet run, so the database gets build.
+- Then go to the folder out/itu-minitwit-sim-stub.
+- run pytest minitwit_sim_api_test.py
