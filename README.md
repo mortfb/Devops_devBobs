@@ -39,3 +39,6 @@ $ vagrant ssh
 $ cd /vagrant
 $ docker compose up -d --build
 ```
+
+# The notebook
+To make work more visible, we have decided to create `notebook.md`. Here changes can be seen together with  **what went wrong**, **where** we found a **solution**.
