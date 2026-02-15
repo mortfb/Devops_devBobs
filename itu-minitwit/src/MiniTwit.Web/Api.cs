@@ -1,12 +1,18 @@
 using Chirp.Infrastructure.Chirp.Repositories;
 using Chirp.Infrastructure.DataTransferObjects;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chirp.Web;
 
+//API, made (shoddily) after the specification in the Stub API.
 public static class Api
 {
     public record FollowRequest(string? Follow, string? Unfollow);
+    public record SignUpRequest(string Username, string Email, string Pwd);
+    
+    //TODO: For the whole Api, 'latests' (Optional: latest value to update) and 'no' (Optional: no limits result count) is not implemented.
+    //TODO: Authorization is (possibly?) not handled. At least not handled here, should not be part of a minimal API, specified elsewere.
     public static void MapProductEndpoints(this WebApplication app)
     {
         app.MapGet("/fllws/{username}",
@@ -20,17 +26,49 @@ public static class Api
             {
                 if (!string.IsNullOrEmpty(request.Follow))
                 {
-                    followRepository.AddFollowing(username,request.Follow);
-                    return Results.Ok($"Following {request.Follow}");
+                    return followRepository.AddFollowing(username,request.Follow);
                 }
 
                 if (!string.IsNullOrEmpty(request.Unfollow))
                 {
-                    followRepository.RemoveFollowing(username,request.Unfollow);
-                    return Results.Ok($"Unfollowing {request.Unfollow}");
+                    return followRepository.RemoveFollowing(username,request.Unfollow);
                 }
                 
-                return Results.BadRequest("Must specify either 'Follow' or 'Unfollow'");
+                return Task.FromResult(Results.BadRequest("Must specify either 'Follow' or 'Unfollow'"));
+            });
+        
+        //TODO: This should return latest ID saved, whatever that means
+        app.MapGet("/latest",() => 0);
+        
+        app.MapGet("/msgs",
+            ([FromQuery (Name = "latest")] int? latests,[FromQuery (Name = "no")] int? no, ICheepRepository  cheepRepository) =>
+            {
+                return cheepRepository.GetCheeps(0);
+            });
+        
+        app.MapGet("/msgs/{username}",
+            (string username,[FromQuery (Name = "latest")] int? latests,[FromQuery (Name = "no")] int? no, ICheepRepository cheepRepository) =>
+            {
+                return cheepRepository.GetAllCheepsFromAuthor(username);
+            });
+        
+        app.MapPost("/msgs/{username}",
+            (string username,[FromQuery (Name = "latest")] int? latests,[FromBody] string content, ICheepRepository cheepRepository, IAuthorRepository authorRepository) =>
+            {
+                var author = authorRepository.GetAuthorByName(username).Result;
+                if (author != null)
+                    return cheepRepository.AddCheep(content, author);
+                else
+                {
+                    return Task.FromResult(Results.BadRequest("Author does not exist"));
+                }
+            });
+        
+        //TODO: Set the password of the new author
+        app.MapPost("/register",
+            ([FromQuery (Name = "latest")] int? latests,[FromBody] SignUpRequest request, IAuthorRepository authorRepository) =>
+            {
+                return authorRepository.CreateAuthor(request.Username, request.Email);
             });
     }
 }
