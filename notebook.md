@@ -41,17 +41,16 @@ Header with Lecture number.
 10/02: 11:35: Refactord Chirp to be named MiniTwit & Moved legacy code to own branch.
 
 10/02  14:50: Added the OpenAPI simulator.
-    - Started by copying the .json API into our repo root
-    `cp ~/<path_to_lecture_notes>/sessions/session_03/API_Spec/swagger3.json .`
+- Started by copying the .json API into our repo root
+        `cp ~/<path_to_lecture_notes>/sessions/session_03/API_Spec/swagger3.json`
 
-    - The ran this command in the same directory
+- The ran this command in the same directory
     `docker run --rm -v "$(pwd):/local" openapitools/openapi-generator-cli:v7.19.0 \
   generate \
   -i /local/swagger3.json \
   -g aspnetcore \
   -o /local/out/itu-minitwit-sim-stub \
   --additional-properties=buildTarget=program,aspnetCoreVersion=8.0,operationIsAsync=true,nullableReferenceTypes=true,useSwashbuckle=true`
-
     - Read about what the above command does here: https://github.com/itu-devops/BSc_lecture_notes/blob/master/sessions/session_03/API_Spec/README.md
 
     - After running this an /out directory appeared. 
@@ -62,12 +61,12 @@ Header with Lecture number.
     - then run with `docker run api_test:latest`
     - then run: docker run -p 8080:8080 api_test:latest
     - Go to the link, and endpoints are visible as described in the .json file.
-    - Now run 'python3 minitwit_simulator.py http://127.0.0.1:8080`. Make sure that the minitwit_scenario.csv file and minitwit_simulator.py file are in the same directory. The simulator should now run
+    - Now in a new terminal window run `python3 minitwit_simulator.py http://127.0.0.1:8080`. Make sure that the minitwit_scenario.csv file and minitwit_simulator.py file are in the same directory. The simulator should now run
 
 
 
 15/02: 13:17
 - added simulator tests.
 - to run go into the MiniTwit.Web and use dotnet run, so the database gets build.
-- Then go to the folder out/itu-minitwit-sim-stub.
-- run pytest minitwit_sim_api_test.py
+- Then go to the folder `out/itu-minitwit-sim-stub`.
+- run `pytest minitwit_sim_api_test.py`
