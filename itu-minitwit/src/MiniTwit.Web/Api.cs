@@ -12,6 +12,8 @@ public static class Api
     public record FollowRequest(string? Follow, string? Unfollow);
     public record MessageRequest(string Content);
     public record SignUpRequest(string Username, string Email, string Pwd);
+
+    public record GetMessagesRequest(string Content, string User);
     
     //TODO: For the whole Api, 'latests' (Optional: latest value to update) and 'no' (Optional: no limits result count) is not implemented.
     //TODO: Authorization is (possibly?) not handled. At least not handled here, should not be part of a minimal API, specified elsewere.
@@ -51,7 +53,7 @@ public static class Api
             {
                 if (latests.HasValue)
                     Latest = latests.Value;
-                return cheepRepository.GetCheeps(0);
+                return cheepRepository.GetCheeps(0).Result.Select(cheep => new GetMessagesRequest(cheep.Text, cheep.Author.Name));
             });
         
         app.MapGet("/msgs/{username}",
@@ -59,7 +61,8 @@ public static class Api
             {
                 if (latests.HasValue)
                     Latest = latests.Value;
-                return cheepRepository.GetAllCheepsFromAuthor(username);
+                
+                return cheepRepository.GetAllCheepsFromAuthor(username).Result.Select(cheep => new GetMessagesRequest(cheep.Text, cheep.Author.Name));
             });
         
         app.MapPost("/msgs/{username}",
