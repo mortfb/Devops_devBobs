@@ -39,3 +39,12 @@ Header with Lecture number.
 
 # Lecture 03
 10/02: 11:35: Refactord Chirp to be named MiniTwit & Moved legacy code to own branch.
+
+
+# Lecture 04
+
+To run the Server with minimal API, from the itu-minitwit/src/MiniTwit.Web run `dotnet run`
+The API can be observed on http://localhost:5221/swagger/index.html
+To run the simulator against the API, find the simulator at BSc_lecture_notes/sessions/session_03/API_Spec and run `python3 minitwit_simulator.py http://localhost:5221/` (while the server is running)
+To fit the 'minitwit_sim_api_test.py' tests to the application, set the BASE_URL at line 10 to 'http://127.0.0.1:5221', and out-comment lines 30 and 31. 
+To run the tests against the api, run `pytest minitwit_sim_api_test.py` (while the server is running)
