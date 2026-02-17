@@ -44,8 +44,7 @@ public static class Api
                 return Task.FromResult(Results.BadRequest("Must specify either 'Follow' or 'Unfollow'"));
             });
         
-        //TODO: This should return latest ID saved, whatever that means
-        app.MapGet("/latest",() => Latest);
+        app.MapGet("/latest",() => new {Latest});
         
         app.MapGet("/msgs",
             ([FromQuery (Name = "latest")] int? latests,[FromQuery (Name = "no")] int? no, ICheepRepository  cheepRepository) =>
