@@ -14,6 +14,8 @@ public static class Api
     public record SignUpRequest(string Username, string Email, string Pwd);
 
     public record GetMessagesRequest(string Content, string User);
+
+    public record GetFollowsRequest(List<string> follows);
     
     //TODO: For the whole Api, 'latests' (Optional: latest value to update) and 'no' (Optional: no limits result count) is not implemented.
     //TODO: Authorization is (possibly?) not handled. At least not handled here, should not be part of a minimal API, specified elsewere.
@@ -24,9 +26,11 @@ public static class Api
             {
                 if (latests.HasValue)
                     Latest = latests.Value;
-                return followRepository.GetFollowed(username);
+
+                var res = followRepository.GetFollowed(username).Result.Select(follow => follow.Followed).ToList();
+                return new GetFollowsRequest(res);
             });
-        
+            
         app.MapPost("/fllws/{username}",
             (string username, [FromQuery (Name = "latest")] int? latests ,[FromBody] FollowRequest request, IFollowRepository followRepository) =>
             {
